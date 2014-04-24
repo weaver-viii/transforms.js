@@ -39,7 +39,9 @@ describe('ES6 Modules', function () {
     var entrypoint = fixture('module.js')
 
     var tree = yield* walk(entrypoint)
-    tree[entrypoint].file.string.should.not.include('import')
+    var string = tree[entrypoint].file.string
+    string.should.be.a.String
+    string.should.not.include('import')
   }))
 })
 
