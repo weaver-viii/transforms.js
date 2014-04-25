@@ -12,7 +12,7 @@
   "repository": "normalize/transforms.js",
   "dependencies": {
     "normalize-walker": "*",
-    "koa-compose": "2",
+    "composition": "1",
     "autoprefixer": "1",
     "regenerator": "0",
     "is-module": "1",
