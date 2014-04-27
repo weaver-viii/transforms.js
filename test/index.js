@@ -162,6 +162,30 @@ describe('Domify', function () {
   }))
 })
 
+describe('UglifyJS', function () {
+  it('.js', co(function* () {
+    var entrypoint = fixture('something.js')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file
+
+    file.minified.should.be.a.String
+    file.minifiedLength.should.equal(Buffer.byteLength(file.minified))
+    file.minifiedLength.should.be.below(Buffer.byteLength(file.string))
+  }))
+})
+
+describe('CleanCSS', function () {
+  it('.css', co(function* () {
+    var entrypoint = fixture('test.css')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file
+
+    file.minified.should.be.a.String
+    file.minifiedLength.should.equal(Buffer.byteLength(file.minified))
+    file.minifiedLength.should.be.below(Buffer.byteLength(file.string))
+  }))
+})
+
 function walk(entrypoint) {
   return walker()
     .use(ignoreRemotes)
