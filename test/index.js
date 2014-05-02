@@ -1,6 +1,7 @@
 
 var walker = require('normalize-walker')
 var path = require('path')
+var fs = require('co-fs')
 var co = require('co')
 
 var transforms = require('..')
@@ -159,6 +160,19 @@ describe('Domify', function () {
     string.should.include('domify('
       + JSON.stringify('<h1 id="hello">hello</h1>\n')
       + ')')
+  }))
+})
+
+describe('Rework', function () {
+  it('.css', co(function* () {
+    var entrypoint = fixture('myth.css')
+
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file
+    var string = file.string
+    var out = yield fs.readFile(fixture('myth.out.css'), 'utf8')
+
+    string.trim().should.equal(out.trim())
   }))
 })
 

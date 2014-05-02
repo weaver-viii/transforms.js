@@ -1,0 +1,26 @@
+body {
+  width: 100px;
+}
+
+p {
+  color: rgb(25, 25, 25);
+  background-color: rgb(255, 255, 255);
+}
+
+@media (min-width: 10px) {
+  p {
+    color: rgb(25, 25, 25);
+    background-color: rgb(255, 255, 255);
+  }
+}
+
+h2 {
+  -webkit-font-feature-settings: "smcp", "c2sc";
+  -moz-font-feature-settings: "smcp", "c2sc";
+  font-feature-settings: "smcp", "c2sc";
+  font-variant-caps: all-small-caps;
+}
+
+input {
+  background-color: rgba(51,153,255,0.6666666666666666);
+}

@@ -60,6 +60,17 @@ All CSS is automatically prefixed using [autoprefixer](https://github.com/ai/aut
 No extensions are necessary.
 The default options are used.
 
+#### Rework
+
+A subset of specification compliant [rework](https://github.com/reworkcss/rework) plugins are included.
+These are essentially a subset of [myth](https://github.com/segmentio/myth).
+These are:
+
+- Color manipulation via [rework-color-function](https://github.com/ianstormtaylor/rework-color-function)
+- Math via [rework-calc](http://www.w3.org/TR/css3-values/#calc-notation)
+- 4/8-digit hex color support via [rework-hex-alpha](https://github.com/ianstormtaylor/rework-hex-alpha)
+- Font-variant shorthands via [rework-font-variant](https://github.com/ianstormtaylor/rework-font-variant)
+
 ### JS
 
 #### ES6 Modules
