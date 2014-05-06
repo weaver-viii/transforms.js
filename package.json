@@ -1,7 +1,7 @@
 {
   "name": "normalize-transforms",
   "description": "Transforms for normalize-walker",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -11,7 +11,7 @@
   "license": "GPL",
   "repository": "normalize/transforms.js",
   "dependencies": {
-    "normalize-walker": "*",
+    "normalize-walker": "0",
     "composition": "1",
     "autoprefixer": "1",
     "regenerator": "0",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "co": "3",
-    "co-fs": "*",
+    "co-fs": "1",
     "mocha": "^1.17",
     "should": "^3.0.0"
   },
