@@ -21,12 +21,7 @@
     "clean-css": "2",
     "uglify-js": "2",
     "marked": "0",
-    "react-tools": "0",
-    "rework": "0",
-    "rework-calc": "0",
-    "rework-color-function": "1",
-    "rework-font-variant": "0",
-    "rework-hex-alpha": "1"
+    "react-tools": "0"
   },
   "devDependencies": {
     "co": "3",

@@ -163,19 +163,6 @@ describe('Domify', function () {
   }))
 })
 
-describe('Rework', function () {
-  it('.css', co(function* () {
-    var entrypoint = fixture('myth.css')
-
-    var tree = yield* walk(entrypoint)
-    var file = tree[entrypoint].file
-    var string = file.string
-    var out = yield fs.readFile(fixture('myth.out.css'), 'utf8')
-
-    string.trim().should.equal(out.trim())
-  }))
-})
-
 describe('UglifyJS', function () {
   it('.js', co(function* () {
     var entrypoint = fixture('something.js')
