@@ -24,7 +24,8 @@
     "react-tools": "0",
     "coffee-script": "1",
     "less": "1",
-    "node-sass": "0"
+    "node-sass": "0",
+    "stylus": "0"
   },
   "devDependencies": {
     "co": "3",

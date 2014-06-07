@@ -225,6 +225,16 @@ describe('SASS', function () {
   }))
 })
 
+describe('Stylus', function () {
+  it('.styl.css', co(function* () {
+    var entrypoint = fixture('stylus-test.css')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file.dependencies['test.styl.css'].file
+
+    file.string.trim().should.equal("body {\n  color: #f00;\n}")
+  }))
+})
+
 function walk(entrypoint) {
   return walker()
     .use(ignoreRemotes)
