@@ -22,7 +22,8 @@
     "uglify-js": "2",
     "marked": "0",
     "react-tools": "0",
-    "coffee-script": "1"
+    "coffee-script": "1",
+    "less": "1"
   },
   "devDependencies": {
     "co": "3",

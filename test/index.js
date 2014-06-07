@@ -197,6 +197,16 @@ describe('CoffeeScript', function () {
   }))
 })
 
+describe('LESS', function () {
+  it('.less.css', co(function* () {
+    var entrypoint = fixture('less-test.css')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file.dependencies['test.less.css'].file
+
+    file.string.trim().should.equal(".class {\n  width: 2;\n}")
+  }))
+})
+
 function walk(entrypoint) {
   return walker()
     .use(ignoreRemotes)
