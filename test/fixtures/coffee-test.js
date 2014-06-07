@@ -1,0 +1,2 @@
+
+import 'test.coffee.js'

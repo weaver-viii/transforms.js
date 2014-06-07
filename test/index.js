@@ -187,6 +187,16 @@ describe('CleanCSS', function () {
   }))
 })
 
+describe('CoffeeScript', function () {
+  it('.coffee.js', co(function* () {
+    var entrypoint = fixture('coffee-test.js')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file.dependencies['test.coffee.js'].file
+
+    file.string.trim().should.equal("console.log('lol');")
+  }))
+})
+
 function walk(entrypoint) {
   return walker()
     .use(ignoreRemotes)
