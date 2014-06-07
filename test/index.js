@@ -207,6 +207,24 @@ describe('LESS', function () {
   }))
 })
 
+describe('SASS', function () {
+  it('.sass.css', co(function* () {
+    var entrypoint = fixture('sass-test.css')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file.dependencies['test.sass.css'].file
+
+    file.string.trim().should.equal(".class {\n  width: 2; }")
+  }))
+
+  it('.scss.css', co(function* () {
+    var entrypoint = fixture('sass-test.css')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file.dependencies['test.scss.css'].file
+
+    file.string.trim().should.equal(".class {\n  width: 2; }")
+  }))
+})
+
 function walk(entrypoint) {
   return walker()
     .use(ignoreRemotes)
