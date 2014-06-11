@@ -17,17 +17,18 @@
     "regenerator": "0",
     "is-module": "1",
     "es6-module-jstransform": "0",
-    "jade": "1",
     "clean-css": "2",
     "uglify-js": "2",
+  },
+  "devDependencies": {
+    "jade": "1",
     "marked": "0",
     "react-tools": "0",
     "coffee-script": "1",
     "less": "1",
     "node-sass": "0",
-    "stylus": "0"
-  },
-  "devDependencies": {
+    "stylus": "0",
+
     "co": "3",
     "co-fs": "1",
     "mocha": "^1.17",
@@ -36,8 +37,5 @@
   "main": "lib",
   "scripts": {
     "test": "mocha --harmony-generators --reporter spec --require should --bail"
-  },
-  "engines": {
-    "node": ">= 0.11"
   }
 }
