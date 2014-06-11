@@ -18,7 +18,7 @@
     "is-module": "1",
     "es6-module-jstransform": "0",
     "clean-css": "2",
-    "uglify-js": "2",
+    "uglify-js": "2"
   },
   "devDependencies": {
     "jade": "1",
