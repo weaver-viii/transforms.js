@@ -11,6 +11,7 @@
   "license": "GPL",
   "repository": "normalize/transforms.js",
   "dependencies": {
+    "debug": "*",
     "normalize-walker": "0",
     "composition": "1",
     "autoprefixer": "1",
