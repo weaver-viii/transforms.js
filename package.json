@@ -14,7 +14,7 @@
     "debug": "*",
     "normalize-walker": "0",
     "composition": "1",
-    "autoprefixer": "1",
+    "autoprefixer": "2",
     "regenerator": "0",
     "is-module": "1",
     "es6-module-jstransform": "0",
