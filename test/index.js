@@ -185,6 +185,16 @@ describe('CleanCSS', function () {
     file.minifiedLength.should.equal(Buffer.byteLength(file.minified))
     file.minifiedLength.should.be.below(Buffer.byteLength(file.string))
   }))
+
+  it('should not process @imports', co(function* () {
+    var entrypoint = fixture('import.css')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file
+
+    file.minified.should.be.a.String
+    file.minifiedLength.should.equal(Buffer.byteLength(file.minified))
+    file.minifiedLength.should.be.below(Buffer.byteLength(file.string))
+  }))
 })
 
 describe('CoffeeScript', function () {
