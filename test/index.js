@@ -66,7 +66,8 @@ describe('Jade', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    var runtime = 'https://nlz.io/github/visionmedia/jade/1/lib/runtime.js'
+    var version = require('jade/package.json').version
+    var runtime = 'https://nlz.io/github/visionmedia/jade/' + version + '/lib/runtime.js'
     file._dependencies.should.include(runtime)
     var string = file.string
     string.should.include(runtime)
