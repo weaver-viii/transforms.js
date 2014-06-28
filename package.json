@@ -12,12 +12,17 @@
   "repository": "normalize/transforms.js",
   "dependencies": {
     "debug": "*",
-    "normalize-walker": "0",
     "composition": "1",
-    "autoprefixer": "2",
-    "regenerator": "0",
+
+    "normalize-log": "0",
+    "normalize-walker": "0",
+
     "is-module": "1",
     "es6-module-jstransform": "0",
+
+    "autoprefixer": "2",
+    "regenerator": "0",
+
     "clean-css": "2",
     "uglify-js": "2"
   },
@@ -29,10 +34,11 @@
     "less": "1",
     "node-sass": "0",
     "stylus": "0",
+
     "co": "3",
     "co-fs": "1",
-    "mocha": "^1.17",
-    "should": "^3.0.0"
+    "mocha": "1",
+    "should": "3"
   },
   "main": "lib",
   "scripts": {
