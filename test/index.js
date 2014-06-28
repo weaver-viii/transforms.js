@@ -53,7 +53,9 @@ describe('Regenerator', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
     var string = file.string
-    string.should.include('require("https://nlz.io/github/facebook/regenerator/0/runtime/dev.js")')
+    var version = require('regenerator/package.json').version
+    string.should.include('require("https://nlz.io/github/facebook/regenerator/'
+      + version + '/runtime/dev.js")')
     string.should.not.include('function*')
   }))
 })
