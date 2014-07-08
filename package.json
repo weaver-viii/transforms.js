@@ -8,21 +8,23 @@
     "url": "http://jongleberry.com",
     "twitter": "https://twitter.com/jongleberry"
   },
-  "license": "GPL",
+  "license": "MIT",
   "repository": "normalize/transforms.js",
   "dependencies": {
     "debug": "*",
     "composition": "1",
     "normalize-log": "0",
     "normalize-walker": "0",
+
     "is-module": "1",
     "es6-module-jstransform": "0",
+
     "autoprefixer": "2",
-    "regenerator": "0",
     "clean-css": "2",
     "uglify-js": "2"
   },
   "devDependencies": {
+    "regenerator": "0",
     "jade": "1",
     "marked": "0",
     "react-tools": "0",
@@ -30,6 +32,7 @@
     "less": "1",
     "node-sass": "0",
     "stylus": "0",
+
     "co": "3",
     "co-fs": "1",
     "mocha": "1",
