@@ -35,14 +35,22 @@ describe('Autoprefixer', function () {
   }))
 })
 
-describe('ES6 Modules', function () {
-  it('.js', co(function* () {
+describe('JSTransform', function () {
+  it('ES6 modules', co(function* () {
     var entrypoint = fixture('module.js')
 
     var tree = yield* walk(entrypoint)
     var string = tree[entrypoint].file.string
+    string.trim().should.equal("require('./string.txt.js');")
+  }))
+
+  it('Arrow Functions', co(function* () {
+    var entrypoint = fixture('arrow.js')
+    var tree = yield* walk(entrypoint)
+    var string = tree[entrypoint].file.string
     string.should.be.a.String
-    string.should.not.include('import')
+    string.should.not.include('=>')
+    string.should.include('function(x)')
   }))
 })
 
