@@ -1,7 +1,7 @@
 {
   "name": "normalize-transforms",
   "description": "Transforms for normalize-walker",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -13,14 +13,11 @@
   "dependencies": {
     "debug": "*",
     "composition": "1",
-
     "normalize-log": "0",
     "normalize-walker": "0",
-
     "is-module": "1",
     "jstransform": "6",
     "es6-module-jstransform": "0",
-
     "autoprefixer": "2",
     "clean-css": "2",
     "uglify-js": "2"
@@ -34,7 +31,6 @@
     "less": "1",
     "node-sass": "0",
     "stylus": "0",
-    
     "co": "3",
     "co-fs": "1",
     "mocha": "1",
