@@ -266,6 +266,13 @@ describe('Shebangs', function () {
   }))
 })
 
+describe('Illegal Statements', function () {
+  it('early returns', co(function* () {
+    var entrypoint = fixture('illegal-return.js')
+    var tree = yield* walk(entrypoint)
+  }))
+})
+
 function walk(entrypoint) {
   return walker()
     .use(ignoreRemotes)

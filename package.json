@@ -15,6 +15,7 @@
     "composition": "1",
 
     "comment-shebang": "1",
+    "esprima-error-formatter": "1",
 
     "normalize-log": "0",
     "normalize-walker": "0",
