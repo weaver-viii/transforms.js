@@ -13,11 +13,16 @@
   "dependencies": {
     "debug": "*",
     "composition": "1",
+
+    "comment-shebang": "1",
+
     "normalize-log": "0",
     "normalize-walker": "0",
+
     "is-module": "1",
     "jstransform": "6",
     "es6-module-jstransform": "0",
+
     "autoprefixer": "2",
     "clean-css": "2",
     "uglify-js": "2"

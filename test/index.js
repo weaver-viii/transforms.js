@@ -256,6 +256,16 @@ describe('Stylus', function () {
   }))
 })
 
+describe('Shebangs', function () {
+  it('should be commented out', co(function* () {
+    var entrypoint = fixture('shebang.js')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file
+
+    file.string.trim().should.equal('// #!/usr/bin/env node')
+  }))
+})
+
 function walk(entrypoint) {
   return walker()
     .use(ignoreRemotes)
