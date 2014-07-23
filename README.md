@@ -1,5 +1,10 @@
 # Walker Transforms
 
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![Gittip][gittip-image]][gittip-url]
+
 For documentations, go to https://normalize.github.io/docs.html#transforms.
 
 ## Opting Out of Transforms
@@ -25,3 +30,12 @@ and instead `devDependencies`.
 
 You might want to remove some transforms or add your own.
 Feel free to fork this and use it as a replacement for `nlz(1)` or your app.
+
+[npm-image]: https://img.shields.io/npm/v/normalize-transforms.svg?style=flat
+[npm-url]: https://npmjs.org/package/normalize-transforms
+[travis-image]: https://img.shields.io/travis/normalize/transforms.js.svg?style=flat
+[travis-url]: https://travis-ci.org/normalize/transforms.js
+[coveralls-image]: https://img.shields.io/coveralls/normalize/transforms.js.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/normalize/transforms.js?branch=master
+[gittip-image]: https://img.shields.io/gittip/jonathanong.svg?style=flat
+[gittip-url]: https://www.gittip.com/jonathanong/
