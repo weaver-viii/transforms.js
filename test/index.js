@@ -44,7 +44,9 @@ describe('JSTransform', function () {
     var string = tree[entrypoint].file.string
     string.trim().should.equal("require('./string.txt.js');")
   }))
+})
 
+describe('Recast', function () {
   it('Arrow Functions', co(function* () {
     var entrypoint = fixture('arrow.js')
     var tree = yield* walk(entrypoint)
@@ -53,18 +55,19 @@ describe('JSTransform', function () {
     string.should.not.include('=>')
     string.should.include('function(x)')
   }))
-})
 
-describe('Regenerator', function () {
-  it('.js', co(function* () {
+  it('Generators', co(function* () {
     var entrypoint = fixture('generator.js')
+
+    var version = require('regenerator/package.json').version
+    var runtime = 'https://nlz.io/github/facebook/regenerator/' + version + '/runtime/dev.js'
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
+    assert(~file._dependencies.indexOf(runtime))
+
     var string = file.string
-    var version = require('regenerator/package.json').version
-    string.should.include('require("https://nlz.io/github/facebook/regenerator/'
-      + version + '/runtime/dev.js")')
+    string.should.include('require("' + runtime + '")')
     string.should.not.include('function*')
   }))
 })
