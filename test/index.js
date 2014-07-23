@@ -1,5 +1,6 @@
 
 var walker = require('normalize-walker')
+var assert = require('assert')
 var path = require('path')
 var fs = require('co-fs')
 var co = require('co')
@@ -224,7 +225,7 @@ describe('LESS', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.less.css'].file
 
-    file.string.trim().should.equal(".class {\n  width: 2;\n}")
+    removeSourceMap(file.string).should.equal(".class {\n  width: 2;\n}")
   }))
 })
 
@@ -234,7 +235,7 @@ describe('SASS', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.sass.css'].file
 
-    file.string.trim().should.equal(".class {\n  width: 2; }")
+    removeSourceMap(file.string).should.equal(".class {\n  width: 2; }")
   }))
 
   it('.scss.css', co(function* () {
@@ -242,7 +243,7 @@ describe('SASS', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.scss.css'].file
 
-    file.string.trim().should.equal(".class {\n  width: 2; }")
+    removeSourceMap(file.string).should.equal(".class {\n  width: 2; }")
   }))
 })
 
@@ -252,7 +253,7 @@ describe('Stylus', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.styl.css'].file
 
-    file.string.trim().should.equal("body {\n  color: #f00;\n}")
+    removeSourceMap(file.string).should.equal("body {\n  color: #f00;\n}")
   }))
 })
 
@@ -295,4 +296,10 @@ function* ignoreRemotes(next) {
     delete deps[name]
     _deps.push(name)
   })
+}
+
+function removeSourceMap(string) {
+  var re = /\/\*# sourceMappingURL[^\n]+$/
+  assert(re.test(string))
+  return string.replace(re, '').trim()
 }
