@@ -187,6 +187,7 @@ describe('UglifyJS', function () {
     file.minified.should.be.a.String
     file.minifiedLength.should.equal(Buffer.byteLength(file.minified))
     file.minifiedLength.should.be.below(Buffer.byteLength(file.string))
+    JSON.parse(file.minifiedMap).version.should.equal(3)
   }))
 })
 
