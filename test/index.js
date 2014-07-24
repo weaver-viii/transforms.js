@@ -218,7 +218,7 @@ describe('CoffeeScript', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.coffee.js'].file
 
-    file.string.trim().should.equal("console.log('lol');")
+    removeSourceMap(file.string).should.equal("console.log('lol');")
   }))
 })
 
@@ -307,7 +307,7 @@ function* ignoreRemotes(next) {
 }
 
 function removeSourceMap(string) {
-  var re = /\/\*# sourceMappingURL[^\n]+$/
+  var re = /\/(\*|\/)# sourceMappingURL[^\n]+$/
   assert(re.test(string))
   return string.replace(re, '').trim()
 }
