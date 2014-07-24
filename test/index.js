@@ -131,7 +131,7 @@ describe('React', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    var string = file.string
+    var string = removeSourceMap(file.string)
     string.should.include("{displayName: 'HelloMessage',")
     string.should.not.include('<div>Hello {this.props.name}</div>')
   }))
