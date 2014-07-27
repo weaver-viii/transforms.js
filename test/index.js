@@ -1,4 +1,5 @@
 
+var convert = require('convert-source-map')
 var walker = require('normalize-walker')
 var assert = require('assert')
 var path = require('path')
@@ -13,7 +14,7 @@ describe('Text', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    file.string.should.equal('module.exports = ' + JSON.stringify('hello\n'))
+    removeSourceMap(file.string).should.equal('module.exports = ' + JSON.stringify('hello\n'))
   }))
 })
 
@@ -23,7 +24,7 @@ describe('JSON', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    file.string.should.equal('module.exports = {\n  "message": "lol"\n}\n')
+    removeSourceMap(file.string).should.equal('module.exports = {\n  "message": "lol"\n}')
   }))
 })
 
@@ -32,7 +33,8 @@ describe('Autoprefixer', function () {
     var entrypoint = fixture('test.css')
 
     var tree = yield* walk(entrypoint)
-    tree[entrypoint].file.string.should.include('-webkit-flex')
+    var file = tree[entrypoint].file
+    removeSourceMap(file.string).should.include('-webkit-flex')
   }))
 })
 
@@ -41,8 +43,8 @@ describe('JSTransform', function () {
     var entrypoint = fixture('module.js')
 
     var tree = yield* walk(entrypoint)
-    var string = tree[entrypoint].file.string
-    string.trim().should.equal("require('./string.txt.js');")
+    var file = tree[entrypoint].file
+    file.string.trim().should.equal("require('./string.txt.js');")
   }))
 })
 
@@ -50,7 +52,7 @@ describe('Recast', function () {
   it('Arrow Functions', co(function* () {
     var entrypoint = fixture('arrow.js')
     var tree = yield* walk(entrypoint)
-    var string = tree[entrypoint].file.string
+    var string = removeSourceMap(tree[entrypoint].file.string)
     string.should.be.a.String
     string.should.not.include('=>')
     string.should.include('function(x)')
@@ -66,7 +68,7 @@ describe('Recast', function () {
     var file = tree[entrypoint].file
     assert(~file._dependencies.indexOf(runtime))
 
-    var string = file.string
+    var string = removeSourceMap(file.string)
     string.should.include('require("' + runtime + '")')
     string.should.not.include('function*')
   }))
@@ -101,7 +103,7 @@ describe('Jade', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    var string = file.string
+    var string = removeSourceMap(file.string)
 
     string.should.equal('module.exports = ' + JSON.stringify('<!DOCTYPE html><html><head></head><body></body></html>'))
   }))
@@ -113,7 +115,7 @@ describe('Markdown', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    file.string.should.equal('<h1 id=\"hello\">hello</h1>\n')
+    file.string.trim().should.equal('<h1 id=\"hello\">hello</h1>')
   }))
 
   it('.md.html.js', co(function* () {
@@ -121,7 +123,7 @@ describe('Markdown', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    file.string.should.equal('module.exports = ' + JSON.stringify('<h1 id="hello">hello</h1>\n'))
+    removeSourceMap(file.string).should.equal('module.exports = ' + JSON.stringify('<h1 id="hello">hello</h1>\n'))
   }))
 })
 
@@ -267,7 +269,7 @@ describe('Shebangs', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
 
-    file.string.trim().should.equal('// #!/usr/bin/env node')
+    removeSourceMap(file.string).should.equal('// #!/usr/bin/env node')
   }))
 })
 
@@ -308,7 +310,6 @@ function* ignoreRemotes(next) {
 }
 
 function removeSourceMap(string) {
-  var re = /\/(\*|\/)# sourceMappingURL[^\n]+$/
-  assert(re.test(string))
-  return string.replace(re, '').trim()
+  assert(convert.fromSource(string))
+  return convert.removeComments(string).trim()
 }

@@ -19,6 +19,10 @@
     "normalize-log": "0",
     "normalize-walker": "0",
 
+    "source-map": "0",
+    "offset-source-map": "1",
+    "convert-source-map": "0",
+
     "is-module": "1",
     "jstransform": "6",
     "es6-module-jstransform": "0",
@@ -48,7 +52,7 @@
 
     "co": "3",
     "co-fs": "1",
-    
+
     "mocha": "1",
     "should": "3",
     "istanbul-harmony": "0"
