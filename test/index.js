@@ -14,7 +14,7 @@ describe('Text', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    removeSourceMap(file.string).should.equal('module.exports = ' + JSON.stringify('hello\n'))
+    assert.equal('module.exports = ' + JSON.stringify('hello\n'), removeSourceMap(file.string))
   }))
 })
 
@@ -24,7 +24,7 @@ describe('JSON', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    removeSourceMap(file.string).should.equal('module.exports = {\n  "message": "lol"\n}')
+    assert.equal('module.exports = {\n  "message": "lol"\n}', removeSourceMap(file.string))
   }))
 })
 
@@ -33,8 +33,8 @@ describe('Autoprefixer', function () {
     var entrypoint = fixture('test.css')
 
     var tree = yield* walk(entrypoint)
-    var file = tree[entrypoint].file
-    removeSourceMap(file.string).should.include('-webkit-flex')
+    var string = removeSourceMap(tree[entrypoint].file.string)
+    assert(~string.indexOf('-webkit-flex'))
   }))
 })
 
@@ -43,8 +43,8 @@ describe('JSTransform', function () {
     var entrypoint = fixture('module.js')
 
     var tree = yield* walk(entrypoint)
-    var file = tree[entrypoint].file
-    file.string.trim().should.equal("require('./string.txt.js');")
+    var string = tree[entrypoint].file.string.trim()
+    assert.equal("require('./string.txt.js');", string)
   }))
 })
 
