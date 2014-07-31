@@ -12,34 +12,13 @@
   "repository": "normalize/transforms.js",
   "dependencies": {
     "debug": "*",
-    "lazyrequire": "1",
+    "type-is": "1",
+    "mime-types": "1",
     "composition": "1",
     "comment-shebang": "1",
-    "esprima-error-formatter": "1",
     "normalize-log": "0",
     "normalize-walker": "0",
-
-    "source-map": "0",
-    "offset-source-map": "1",
-    "convert-source-map": "0",
-
-    "is-module": "1",
-    "jstransform": "6",
-    "es6-module-jstransform": "0",
-
-    "recast": "0",
-    "regenerator": "0",
-    "es6-class": "0",
-    "es6-arrow-function": "0",
-    "es6-templates": "0",
-    "es6-rest-params": "0",
-    "es6-default-params": "0",
-    "es6-spread": "0",
-    "es6-comprehensions": "0",
-
-    "autoprefixer": "2",
-    "clean-css": "2",
-    "uglify-js": "2"
+    "convert-source-map": "0"
   },
   "devDependencies": {
     "jade": "1",

@@ -14,7 +14,7 @@ describe('Text', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    assert.equal('module.exports = ' + JSON.stringify('hello\n'), removeSourceMap(file.string))
+    assert.equal('export default ' + JSON.stringify('hello\n'), file.string.trim())
   }))
 })
 
@@ -24,53 +24,7 @@ describe('JSON', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    assert.equal('module.exports = {\n  "message": "lol"\n}', removeSourceMap(file.string))
-  }))
-})
-
-describe('Autoprefixer', function () {
-  it('.css', co(function* () {
-    var entrypoint = fixture('test.css')
-
-    var tree = yield* walk(entrypoint)
-    var string = removeSourceMap(tree[entrypoint].file.string)
-    assert(~string.indexOf('-webkit-flex'))
-  }))
-})
-
-describe('JSTransform', function () {
-  it('ES6 modules', co(function* () {
-    var entrypoint = fixture('module.js')
-
-    var tree = yield* walk(entrypoint)
-    var string = tree[entrypoint].file.string.trim()
-    assert.equal("require('./string.txt.js');", string)
-  }))
-})
-
-describe('Recast', function () {
-  it('Arrow Functions', co(function* () {
-    var entrypoint = fixture('arrow.js')
-    var tree = yield* walk(entrypoint)
-    var string = removeSourceMap(tree[entrypoint].file.string)
-    string.should.be.a.String
-    string.should.not.include('=>')
-    string.should.include('function(x)')
-  }))
-
-  it('Generators', co(function* () {
-    var entrypoint = fixture('generator.js')
-
-    var version = require('regenerator/package.json').version
-    var runtime = 'https://nlz.io/github/facebook/regenerator/' + version + '/runtime/dev.js'
-
-    var tree = yield* walk(entrypoint)
-    var file = tree[entrypoint].file
-    assert(~file._dependencies.indexOf(runtime))
-
-    var string = removeSourceMap(file.string)
-    string.should.include('require("' + runtime + '")')
-    string.should.not.include('function*')
+    assert.equal('export default {\n  "message": "lol"\n}', file.string.trim())
   }))
 })
 
@@ -85,7 +39,7 @@ describe('Jade', function () {
     file._dependencies.should.include(runtime)
     var string = file.string
     string.should.include(runtime)
-    string.should.include('module.exports = function template(locals)')
+    string.should.include('export default function template(locals)')
   }))
 
   it('.jade.html', co(function* () {
@@ -103,9 +57,9 @@ describe('Jade', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    var string = removeSourceMap(file.string)
+    var string = file.string.trim()
 
-    string.should.equal('module.exports = ' + JSON.stringify('<!DOCTYPE html><html><head></head><body></body></html>'))
+    string.should.equal('export default ' + JSON.stringify('<!DOCTYPE html><html><head></head><body></body></html>'))
   }))
 })
 
@@ -123,7 +77,7 @@ describe('Markdown', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    removeSourceMap(file.string).should.equal('module.exports = ' + JSON.stringify('<h1 id="hello">hello</h1>\n'))
+    file.string.trim().should.equal('export default ' + JSON.stringify('<h1 id="hello">hello</h1>\n'))
   }))
 })
 
@@ -133,7 +87,7 @@ describe('React', function () {
 
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
-    var string = removeSourceMap(file.string)
+    var string = file.string.trim()
     string.should.include("{displayName: 'HelloMessage',")
     string.should.not.include('<div>Hello {this.props.name}</div>')
   }))
@@ -147,7 +101,7 @@ describe('Domify', function () {
     var file = tree[entrypoint].file
     var string = file.string
 
-    string.should.include('var domify = require("https://nlz.io/github/component/domify/1/index.js")')
+    string.should.include('import domify from "https://nlz.io/github/component/domify/1/index.js"')
     string.should.include('domify('
       + JSON.stringify('<!DOCTYPE html><html><head></head><body></body></html>\n')
       + ')')
@@ -160,7 +114,7 @@ describe('Domify', function () {
     var file = tree[entrypoint].file
     var string = file.string
 
-    string.should.include('var domify = require("https://nlz.io/github/component/domify/1/index.js")')
+    string.should.include('import domify from "https://nlz.io/github/component/domify/1/index.js"')
     string.should.include('domify('
       + JSON.stringify('<!DOCTYPE html><html><head></head><body></body></html>')
       + ')')
@@ -173,45 +127,10 @@ describe('Domify', function () {
     var file = tree[entrypoint].file
     var string = file.string
 
-    string.should.include('var domify = require("https://nlz.io/github/component/domify/1/index.js")')
+    string.should.include('import domify from "https://nlz.io/github/component/domify/1/index.js"')
     string.should.include('domify('
       + JSON.stringify('<h1 id="hello">hello</h1>\n')
       + ')')
-  }))
-})
-
-describe('UglifyJS', function () {
-  it('.js', co(function* () {
-    var entrypoint = fixture('something.js')
-    var tree = yield* walk(entrypoint)
-    var file = tree[entrypoint].file
-
-    file.minified.should.be.a.String
-    file.minifiedLength.should.equal(Buffer.byteLength(file.minified))
-    file.minifiedLength.should.be.below(Buffer.byteLength(file.string))
-    JSON.parse(file.minifiedMap).version.should.equal(3)
-  }))
-})
-
-describe('CleanCSS', function () {
-  it('.css', co(function* () {
-    var entrypoint = fixture('test.css')
-    var tree = yield* walk(entrypoint)
-    var file = tree[entrypoint].file
-
-    file.minified.should.be.a.String
-    file.minifiedLength.should.equal(Buffer.byteLength(file.minified))
-    file.minifiedLength.should.be.below(Buffer.byteLength(file.string))
-  }))
-
-  it('should not process @imports', co(function* () {
-    var entrypoint = fixture('import.css')
-    var tree = yield* walk(entrypoint)
-    var file = tree[entrypoint].file
-
-    file.minified.should.be.a.String
-    file.minifiedLength.should.equal(Buffer.byteLength(file.minified))
-    file.minifiedLength.should.be.below(Buffer.byteLength(file.string))
   }))
 })
 
@@ -231,7 +150,7 @@ describe('LESS', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.less.css'].file
 
-    removeSourceMap(file.string).should.equal(".class {\n  width: 2;\n}")
+    file.string.trim().should.equal(".class {\n  width: 2;\n}")
   }))
 })
 
@@ -241,7 +160,7 @@ describe('SASS', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.sass.css'].file
 
-    removeSourceMap(file.string).should.equal(".class {\n  width: 2; }")
+    file.string.trim().should.equal(".class {\n  width: 2; }")
   }))
 
   it('.scss.css', co(function* () {
@@ -249,7 +168,7 @@ describe('SASS', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.scss.css'].file
 
-    removeSourceMap(file.string).should.equal(".class {\n  width: 2; }")
+    file.string.trim().should.equal(".class {\n  width: 2; }")
   }))
 })
 
@@ -259,7 +178,7 @@ describe('Stylus', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.styl.css'].file
 
-    removeSourceMap(file.string).should.equal("body {\n  color: #f00;\n}")
+    file.string.trim().should.equal("body {\n  color: #f00;\n}")
   }))
 })
 
@@ -269,19 +188,7 @@ describe('Shebangs', function () {
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file
 
-    removeSourceMap(file.string).should.equal('// #!/usr/bin/env node')
-  }))
-})
-
-describe('Illegal Statements', function () {
-  it('early returns', co(function* () {
-    var entrypoint = fixture('illegal-return.js')
-    var tree = yield* walk(entrypoint)
-  }))
-
-  it('<<', co(function* () {
-    var entrypoint = fixture('bad.js')
-    var tree = yield* walk(entrypoint)
+    file.string.trim().should.equal('// #!/usr/bin/env node')
   }))
 })
 
