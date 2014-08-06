@@ -17,8 +17,7 @@
     "composition": "1",
     "comment-shebang": "1",
     "normalize-log": "0",
-    "normalize-walker": "0",
-    "convert-source-map": "0"
+    "normalize-walker": "0"
   },
   "devDependencies": {
     "jade": "1",

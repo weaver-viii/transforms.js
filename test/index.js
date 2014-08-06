@@ -1,5 +1,4 @@
 
-var convert = require('convert-source-map')
 var walker = require('normalize-walker')
 var assert = require('assert')
 var path = require('path')
@@ -139,8 +138,9 @@ describe('CoffeeScript', function () {
     var entrypoint = fixture('coffee-test.js')
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.coffee.js'].file
-
-    removeSourceMap(file.string).should.equal("console.log('lol');")
+    
+    assert(file.map)
+    file.string.trim().should.equal("console.log('lol');")
   }))
 })
 
@@ -214,9 +214,4 @@ function* ignoreRemotes(next) {
     delete deps[name]
     _deps.push(name)
   })
-}
-
-function removeSourceMap(string) {
-  assert(convert.fromSource(string))
-  return convert.removeComments(string).trim()
 }
