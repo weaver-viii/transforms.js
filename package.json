@@ -1,7 +1,7 @@
 {
   "name": "normalize-transforms",
   "description": "Transforms for normalize-walker",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -27,10 +27,8 @@
     "less": "1",
     "node-sass": "0",
     "stylus": "0",
-
     "co": "3",
     "co-fs": "1",
-
     "mocha": "1",
     "should": "3",
     "istanbul-harmony": "0"
@@ -41,5 +39,7 @@
     "test-cov": "node --harmony-generators node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --require should",
     "test-travis": "node --harmony-generators node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot --require should"
   },
-  "files": ["lib"]
+  "files": [
+    "lib"
+  ]
 }
