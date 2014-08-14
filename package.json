@@ -16,7 +16,7 @@
     "mime-types": "1",
     "composition": "1",
     "comment-shebang": "1",
-    "normalize-log": "0",
+    "normalize-log": "1",
     "normalize-walker": "1"
   },
   "devDependencies": {
