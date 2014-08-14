@@ -138,7 +138,7 @@ describe('CoffeeScript', function () {
     var entrypoint = fixture('coffee-test.js')
     var tree = yield* walk(entrypoint)
     var file = tree[entrypoint].file.dependencies['test.coffee.js'].file
-    
+
     assert(file.map)
     file.string.trim().should.equal("console.log('lol');")
   }))
@@ -189,6 +189,26 @@ describe('Shebangs', function () {
     var file = tree[entrypoint].file
 
     file.string.trim().should.equal('// #!/usr/bin/env node')
+  }))
+})
+
+describe('HTML', function () {
+  it('.html', co(function* () {
+    var entrypoint = fixture('template.html')
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file
+
+    assert(file.string)
+  }))
+
+  it('.html.js', co(function* () {
+    var entrypoint = fixture('template.html') + '.js'
+
+    var tree = yield* walk(entrypoint)
+    var file = tree[entrypoint].file
+
+    assert.equal(0, file.string.indexOf('export default'))
+    assert(~file.string.indexOf('<html>'))
   }))
 })
 
