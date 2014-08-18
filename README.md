@@ -8,7 +8,7 @@
 [![Downloads][downloads-image]][downloads-url]
 [![Gittip][gittip-image]][gittip-url]
 
-For documentations, go to https://normalize.github.io/docs.html#transforms.
+For documentation, go to https://normalize.github.io/api.html#transforms.
 
 ## Adding Transforms
 
