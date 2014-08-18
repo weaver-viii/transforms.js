@@ -66,6 +66,9 @@ you don't have to fork this repository.
 Instead, you can use this repository as a dependency
 and bundle all the exported transforms like the exported `transform()` function: https://github.com/normalize/transforms.js/blob/master/lib/index.js
 
+Caveat: if your transform function is a local file, prefix it with `./` so that
+`nlz` knows that it's a local file. It will be resolved against `process.cwd()`.
+
 [npm-image]: https://img.shields.io/npm/v/normalize-transforms.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/normalize-transforms
 [github-tag]: http://img.shields.io/github/tag/normalize/transforms.js.svg?style=flat-square
