@@ -1,5 +1,5 @@
 
-var walker = require('normalize-walker')
+var walker = require('deps-walk')
 var assert = require('assert')
 var path = require('path')
 var fs = require('co-fs')
@@ -179,16 +179,6 @@ describe('Stylus', function () {
     var file = tree[entrypoint].file.dependencies['test.styl.css'].file
 
     file.string.trim().should.equal("body {\n  color: #f00;\n}")
-  }))
-})
-
-describe('Shebangs', function () {
-  it('should be commented out', co(function* () {
-    var entrypoint = fixture('shebang.js')
-    var tree = yield* walk(entrypoint)
-    var file = tree[entrypoint].file
-
-    file.string.trim().should.equal('// #!/usr/bin/env node')
   }))
 })
 
