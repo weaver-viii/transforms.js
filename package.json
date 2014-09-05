@@ -19,6 +19,7 @@
     "deps-walk": "1"
   },
   "devDependencies": {
+    "esprima": "git://github.com/esnext/esprima#harmony-esnext",
     "jade": "1",
     "marked": "0",
     "react-tools": "0",
