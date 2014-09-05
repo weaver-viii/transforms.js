@@ -13,7 +13,7 @@
   "dependencies": {
     "debug": "*",
     "type-is": "1",
-    "mime-types": "1",
+    "mime-types": "2",
     "composition": "1",
     "normalize-log": "1",
     "deps-walk": "1"
